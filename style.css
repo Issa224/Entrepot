@@ -1,0 +1,14 @@
+body { background-color:#f0f8ff; font-family: Arial, sans-serif; 
+    margin: 20px color:#333; }
+    h1, h2 { color:#005f99;}
+    input,select {padding: 8px; margin: 5px 5px 10px 0; border:1px solid #ccc;}
+    label {margin-right: 5px;}
+    button {bakground-color:#007acc;
+    color:white;
+    border:none;
+    padding: 10px 15px;
+    cursor: pointer;  
+    margin-right: 5px;}
+    button:hover {background-color:#005f99}
+    table { width: 100%; border-collapse: collapse; margin-top: 20px;}
+    th, td { border: 1px solid #aaa; padding: 10px; text-align: center;}
