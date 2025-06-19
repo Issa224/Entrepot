@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockFlow</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <aside>
+            <header class="header">
+                <h1>StockFlow</h1>
+                <p>Gestion des stocks</p>
+
+            </header>
+            <div class="nav">
+                <h2>Navigatioin</h2>
+
+                <ul>
+                    <li><a href="dashboard.html">Tableau de bord</a></li>
+                    <li><a href="produits.html">Produits</a></li>
+                    <li><a href="mouvements.html">Mouvement</a></li>
+                    <li><a href="entree.html">Entrées de stock</a> </li>
+                    <li><a href="Sortie.html">Sorties de stocks</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+    <main>
+        <div class="content">
+            <div class="content-header">
+                <h2>Gestion des Produits</h2>
+                <p>Gérez votre catalogue de produits</p>
+            </div>
+            <div class="content-btn">
+                <button id="addProductBtn">Ajouter un Produit</button>
+            </div>
+        </div>
+        <div class="recherche">
+            <h3>Rechercher un produit</h3>
+            <div class="input">
+                <input type="text" id="searchInput" placeholder="Rechercher un produit...">
+                <select name="category" id="category">
+                    <option value="">Toutes les catégories</option>
+                    <option value="electronics">Électronique</option>
+                    <option value="furniture">Meubles</option>
+                    <option value="clothing">Vêtements</option>
+                    <option value="food">Alimentation</option>
+                </select>
+
+            </div>
+        </div>
+            <div class="product-item">
+                <!-- Les produits seront chargé dynamiquement ici via le javascri -->
+            </div>
+            <script src="main.js"></script>
+    </main>
+</body>
+
+</html>
