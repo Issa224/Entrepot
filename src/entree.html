@@ -18,13 +18,12 @@
                
             </header>
             <div class="nav">
-                <h2>Navigatioin</h2>
-
+                <h2>Navigation</h2>
                 <ul>
                     <li><a href="dashboard.html">Tableau de bord</a></li>
                     <li><a href="produits.html">Produits</a></li>
                     <li><a href="mouvements.html">Mouvement</a></li>
-                    <li><a href="entree.html">Entrées de stock</a> </li>
+                    <li><a href="entree.html">Entrées de stock</a></li>
                     <li><a href="Sortie.html">Sorties de stocks</a></li>
                 </ul>
             </div>
@@ -36,30 +35,28 @@
                 <h2>Entrées de Stock</h2>
                 <p>Gérez les entrées de stock</p>
             </div>
-            <div class="content-btn">
-                <button id="addEntryBtn">Ajouter une Entrée</button>
-            </div>
+           
         </div>
 
-        <div class="recherche">
-            <h3>Rechercher une entrée</h3>
-            <div class="input">
-                <input type="text" id="searchInput" placeholder="Rechercher une entrée...">
-                <select name="category" id="category">
-                    <option value="">Toutes les catégories</option>
-                    <option value="electronics">Électronique</option>
-                    <option value="furniture">Meubles</option>
-                    <option value="clothing">Vêtements</option>
-                    <option value="food">Alimentation</option>
-                </select>
-            </div>
-        </div>
+        <div class="entry-form">
+            <form id="entryForm">
+                <label for="product">Produit:</label>
+                <input type="text" id="product" name="product" required>
+
+                <label for="quantity">Quantité:</label>
+                <input type="number" id="quantity" name="quantity" required min="1">
+
+                <label for="date">Date d'entrée:</label>
+                <input type="date" id="date" name="date" required>
+
+                <button type="submit">Ajouter Entrée</button>
+            </form>
 
         <div class="entry-item">
             <!-- Les entrées seront chargées dynamiquement ici via le JavaScript -->
         </div>
 
-        <script src="main.js"></script>
+        <script src="script/entree.js"></script>
     </main>
 </body>
 </html>

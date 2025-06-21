@@ -16,79 +16,95 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Données d'exemple
-    const produits = [
-        { nom: "Clavier mécanique", stock: 0, valeur: 80, entrees: 10, sorties: 10, derniereEntree: "2025-06-18", derniereSortie: "2025-06-19" },
-        { nom: "Souris sans fil", stock: 2, valeur: 25, entrees: 15, sorties: 13, derniereEntree: "2025-06-17", derniereSortie: "2025-06-18" },
-        { nom: "Écran 24 pouces", stock: 20, valeur: 150, entrees: 25, sorties: 5, derniereEntree: "2025-06-15", derniereSortie: "2025-06-16" },
-        { nom: "Casque audio", stock: 4, valeur: 60, entrees: 8, sorties: 4, derniereEntree: "2025-06-14", derniereSortie: "2025-06-15" },
-        { nom: "Webcam HD", stock: 0, valeur: 40, entrees: 5, sorties: 5, derniereEntree: "2025-06-13", derniereSortie: "2025-06-14" }
-    ];
+    function getData() {
+        return JSON.parse(localStorage.getItem('data') || '{"produits":[],"entrees":[],"sorties":[]}');
+    }
 
-    // Calculs
-    const totalProducts = produits.length;
-    const totalValue = produits.reduce((sum, p) => sum + (p.stock * p.valeur), 0);
-    const totalEntree = produits.reduce((sum, p) => sum + p.entrees, 0);
-    const totalSortie = produits.reduce((sum, p) => sum + p.sorties, 0);
-    const lowStock = produits.filter(p => p.stock > 0 && p.stock <= 5);
-    const outOfStock = produits.filter(p => p.stock === 0);
+    function updateDashboard() {
+        const data = getData();
+        if(document.getElementById('totalProducts')) document.getElementById('totalProducts').textContent = data.produits.length;
+        if(document.getElementById('totalValue')) document.getElementById('totalValue').textContent = data.produits.reduce((sum, p) => sum + ((p.stock || 0) * (p.valeur || 0)), 0) + " $";
+        if(document.getElementById('totalEntree')) document.getElementById('totalEntree').textContent = data.entrees.reduce((sum, e) => sum + (e.quantite || 0), 0);
+        if(document.getElementById('totalSortie')) document.getElementById('totalSortie').textContent = data.sorties.reduce((sum, s) => sum + (s.quantite || 0), 0);
+        if(document.getElementById('lowStock')) document.getElementById('lowStock').textContent = data.produits.filter(p => p.stock > 0 && p.stock <= 5).length;
+        if(document.getElementById('outOfStock')) document.getElementById('outOfStock').textContent = data.produits.filter(p => p.stock === 0).length;
 
-    // Affichage dashboard
-    if(document.getElementById('totalProducts')) document.getElementById('totalProducts').textContent = totalProducts;
-    if(document.getElementById('totalValue')) document.getElementById('totalValue').textContent = totalValue + " $";
-    if(document.getElementById('totalEntree')) document.getElementById('totalEntree').textContent = totalEntree;
-    if(document.getElementById('totalSortie')) document.getElementById('totalSortie').textContent = totalSortie;
-    if(document.getElementById('lowStock')) document.getElementById('lowStock').textContent = lowStock.length;
-    if(document.getElementById('outOfStock')) document.getElementById('outOfStock').textContent = outOfStock.length;
+        // Alertes
+        const outOfStockList = document.getElementById('outOfStockList');
+        if(outOfStockList) {
+            const outOfStock = data.produits.filter(p => p.stock === 0);
+            if (outOfStock.length === 0) {
+                outOfStockList.innerHTML = `<li><i class="fas fa-check-circle"></i> Aucun produit en rupture</li>`;
+            } else {
+                outOfStockList.innerHTML = outOfStock.map(p => `<li><i class="fas fa-times-circle"></i> ${p.nom}</li>`).join('');
+            }
+        }
+        const lowStockList = document.getElementById('lowStockList');
+        if(lowStockList) {
+            const lowStock = data.produits.filter(p => p.stock > 0 && p.stock <= 5);
+            if (lowStock.length === 0) {
+                lowStockList.innerHTML = `<li><i class="fas fa-check-circle"></i> Aucun produit à faible stock</li>`;
+            } else {
+                lowStockList.innerHTML = lowStock.map(p => `<li><i class="fas fa-exclamation-triangle"></i> ${p.nom} (stock: ${p.stock})</li>`).join('');
+            }
+        }
 
-    // Alertes
-    const outOfStockList = document.getElementById('outOfStockList');
-    if(outOfStockList) {
-        if (outOfStock.length === 0) {
-            outOfStockList.innerHTML = `<li><i class="fas fa-check-circle"></i> Aucun produit en rupture</li>`;
-        } else {
-            outOfStockList.innerHTML = outOfStock.map(p => `<li><i class="fas fa-times-circle"></i> ${p.nom}</li>`).join('');
+        // Activité récente (entrées et sorties)
+        const recentActivityList = document.getElementById('recentActivityList');
+        if(recentActivityList) {
+            // On prend les 5 dernières activités (entrées ou sorties)
+            let activities = [];
+            // Ajoute toutes les entrées
+            data.entrees.forEach(e => {
+                activities.push({
+                    type: 'Entrée',
+                    produit: e.produit,
+                    quantite: e.quantite,
+                    date: e.date
+                });
+            });
+            // Ajoute toutes les sorties
+            data.sorties.forEach(s => {
+                activities.push({
+                    type: 'Sortie',
+                    produit: s.produit,
+                    quantite: s.quantite,
+                    date: s.date
+                });
+            });
+            // Trie par date décroissante et prend les 5 plus récentes
+            activities = activities.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
+            if (activities.length === 0) {
+                recentActivityList.innerHTML = "<li>Aucune activité récente.</li>";
+            } else {
+                recentActivityList.innerHTML = activities.map(act =>
+                    `<li>
+                        <i class="fas ${act.type === 'Entrée' ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>
+                        <strong>${act.produit}</strong> : ${act.type} (${act.quantite}) le ${act.date}
+                    </li>`
+                ).join('');
+            }
+        }
+
+        // Dernières sorties
+        const recentSortieList = document.getElementById('recentSortieList');
+        if(recentSortieList) {
+            // On prend les 3 dernières sorties
+            let sorties = data.produits.map(p => ({ produit: p.nom, date: p.derniereSortie }))
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 3);
+            recentSortieList.innerHTML = sorties.map(s =>
+                `<li>
+                    <i class="fas fa-arrow-up"></i>
+                    <strong>${s.produit}</strong> : sortie le ${s.date}
+                </li>`
+            ).join('');
         }
     }
-    const lowStockList = document.getElementById('lowStockList');
-    if(lowStockList) {
-        if (lowStock.length === 0) {
-            lowStockList.innerHTML = `<li><i class="fas fa-check-circle"></i> Aucun produit à faible stock</li>`;
-        } else {
-            lowStockList.innerHTML = lowStock.map(p => `<li><i class="fas fa-exclamation-triangle"></i> ${p.nom} (stock: ${p.stock})</li>`).join('');
-        }
-    }
 
-    // Activité récente (entrées et sorties)
-    const recentActivityList = document.getElementById('recentActivityList');
-    if(recentActivityList) {
-        // On prend les 5 dernières activités (entrées ou sorties)
-        let activities = [];
-        produits.forEach(p => {
-            activities.push({ type: 'Entrée', produit: p.nom, date: p.derniereEntree });
-            activities.push({ type: 'Sortie', produit: p.nom, date: p.derniereSortie });
-        });
-        activities = activities.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
-        recentActivityList.innerHTML = activities.map(act =>
-            `<li>
-                <i class="fas ${act.type === 'Entrée' ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>
-                <strong>${act.produit}</strong> : ${act.type} le ${act.date}
-            </li>`
-        ).join('');
-    }
+    // Met à jour le dashboard au chargement
+    updateDashboard();
 
-    // Dernières sorties
-    const recentSortieList = document.getElementById('recentSortieList');
-    if(recentSortieList) {
-        // On prend les 3 dernières sorties
-        let sorties = produits.map(p => ({ produit: p.nom, date: p.derniereSortie }))
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, 3);
-        recentSortieList.innerHTML = sorties.map(s =>
-            `<li>
-                <i class="fas fa-arrow-up"></i>
-                <strong>${s.produit}</strong> : sortie le ${s.date}
-            </li>`
-        ).join('');
-    }
+    // Synchronisation automatique si modification dans un autre onglet
+    window.addEventListener('storage', updateDashboard);
 });

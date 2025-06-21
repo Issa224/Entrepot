@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockFlow</title>
+    <link rel="stylesheet" href="css/produit.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="script.js" defer></script>
 </head>
@@ -36,28 +37,19 @@
                 <h2>Gestion des Produits</h2>
                 <p>Gérez votre catalogue de produits</p>
             </div>
-            <div class="content-btn">
-                <button id="addProductBtn">Ajouter un Produit</button>
-            </div>
+        
         </div>
         <div class="recherche">
             <h3>Rechercher un produit</h3>
             <div class="input">
                 <input type="text" id="searchInput" placeholder="Rechercher un produit...">
-                <select name="category" id="category">
-                    <option value="">Toutes les catégories</option>
-                    <option value="electronics">Électronique</option>
-                    <option value="furniture">Meubles</option>
-                    <option value="clothing">Vêtements</option>
-                    <option value="food">Alimentation</option>
-                </select>
-
+                <button id="searchBtn">Rechercher</button>
             </div>
         </div>
             <div class="product-item">
                 <!-- Les produits seront chargé dynamiquement ici via le javascri -->
             </div>
-            <script src="main.js"></script>
+            <script src="script/produit.js"></script>
     </main>
 </body>
 

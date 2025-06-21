@@ -1,0 +1,115 @@
+/* Réutilise la police et le fond général */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #4F8CFF 0%, #8F5EFF 100%);
+    color: #232946;
+    min-height: 100vh;
+}
+
+/* Conteneur des produits */
+.product-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 24px;
+    justify-content: flex-start;
+}
+
+/* Carte produit */
+.product {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(143, 94, 255, 0.08);
+    padding: 22px 20px;
+    min-width: 220px;
+    max-width: 260px;
+    flex: 1 1 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: box-shadow 0.2s;
+    border: 1px solid #e0e7ff;
+}
+
+.product:hover {
+    box-shadow: 0 6px 24px rgba(79, 140, 255, 0.13);
+    border-color: #8F5EFF;
+}
+
+.product strong {
+    color: #5F4B8B;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.product span {
+    color: #4F8CFF;
+    font-weight: 500;
+}
+
+.product br {
+    margin-bottom: 6px;
+}
+
+.product .stock {
+    color: #8F5EFF;
+    font-weight: bold;
+}
+
+.product .prix {
+    color: #232946;
+    font-weight: 500;
+}
+
+@media (max-width: 900px) {
+    .product-item {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .product {
+        max-width: 100%;
+        min-width: 0;
+    }
+}
+
+/* Recherche */
+.recherche {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.recherche input[type="text"],
+.recherche input[type="search"] {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #8F5EFF;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #f4f4f4;
+    color: #232946;
+    transition: border 0.2s;
+}
+
+.recherche input[type="text"]:focus,
+.recherche input[type="search"]:focus {
+    border: 2px solid #4F8CFF;
+    outline: none;
+}
+
+.recherche button {
+    background-color: #4F8CFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.recherche button:hover {
+    background-color: #8F5EFF;
+}
