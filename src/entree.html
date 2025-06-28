@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockFlow</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <aside>
+            <header class="header">
+                <h1>StockFlow</h1>
+                <p>Gestion des stocks</p>
+               
+            </header>
+            <div class="nav">
+                <h2>Navigation</h2>
+                <ul>
+                    <li><a href="dashboard.html">Tableau de bord</a></li>
+                    <li><a href="produits.html">Produits</a></li>
+                    <li><a href="mouvements.html">Mouvement</a></li>
+                    <li><a href="entree.html">Entrées de stock</a></li>
+                    <li><a href="Sortie.html">Sorties de stocks</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+    <main>
+        <div class="content">
+            <div class="content-header">
+                <h2>Entrées de Stock</h2>
+                <p>Gérez les entrées de stock</p>
+            </div>
+           
+        </div>
+
+        <div class="entry-form">
+            <form id="entryForm">
+                <label for="product">Produit:</label>
+                <input type="text" id="product" name="product" required>
+
+                <label for="quantity">Quantité:</label>
+                <input type="number" id="quantity" name="quantity" required min="1">
+
+                <label for="date">Date d'entrée:</label>
+                <input type="date" id="date" name="date" required>
+
+                <button type="submit">Ajouter Entrée</button>
+            </form>
+
+        <div class="entry-item">
+            <!-- Les entrées seront chargées dynamiquement ici via le JavaScript -->
+        </div>
+
+        <script src="script/entree.js"></script>
+    </main>
+</body>
+</html>

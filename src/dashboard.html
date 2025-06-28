@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockFlow</title>
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Font Awesome CDN pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar">
+        <aside>
+            <header class="header">
+                <h1>StockFlow</h1>
+                <p>Gestion des stocks</p>
+            </header>
+            <div class="nav">
+                <h2>Navigation</h2>
+                <ul>
+                    <li><a href="dashboard.html" class="active"><i class="fas fa-chart-line"></i> Tableau de bord</a></li>
+                    <li><a href="produits.html"><i class="fas fa-boxes"></i> Produits</a></li>
+                    <li><a href="mouvements.html"><i class="fas fa-exchange-alt"></i> Mouvement</a></li>
+                    <li><a href="entree.html"><i class="fas fa-arrow-down"></i> Entrées de stock</a></li>
+                    <li><a href="Sortie.html"><i class="fas fa-arrow-up"></i> Sorties de stocks</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+    <main>
+        <div class="dashboard">
+            <div class="title">
+                <h2>Tableau de bord</h2>
+                <p>Vue d'ensemble de votre inventaire</p>
+            </div>
+            <div class="card">
+                <div class="stats">
+                    <h3>Total Produits</h3>
+                    <p id="totalProducts">0</p>
+                    <h5>Nombre total de produits dans l'inventaire</h5>
+                </div>
+                <div class="stat">
+                    <h3>Valeur Totale</h3>
+                    <p id="totalValue">$0</p>
+                    <h5>Valeur totale de l'inventaire</h5>
+                </div>
+                <div class="stat">
+                    <h3>Total Entrées</h3>
+                    <p id="totalEntree">0</p>
+                    <h5>Produits Entrés</h5>
+                </div>
+                <div class="stat">
+                    <h3>Total Sorties</h3>
+                    <p id="totalSortie">0</p>
+                    <h5>Produits sortis</h5>
+                </div>
+                <div class="stat">
+                    <h3>Stock Faible</h3>
+                    <p id="lowStock">0</p>
+                    <h5>Produits à réapprovisionner</h5>
+                </div>
+                <div class="stat">
+                    <h3>Rupture de Stock</h3>
+                    <p id="outOfStock">0</p>
+                    <h5>Produits en rupture</h5>
+                </div>
+            </div>
+        </div>
+        <div class="Act">
+            <div class="Alert-stock">
+                <h2><i class="fas fa-bell"></i> Alertes de Stock</h2>
+                <p>Produits nécessitant votre attention</p>
+                <div class="alert">
+                    <h2><i class="fas fa-times-circle"></i> Produits en rupture de stock</h2>
+                    <ul id="outOfStockList">
+                        <!-- Produits en rupture de stock -->
+                    </ul>
+                    <h2><i class="fas fa-exclamation-triangle"></i> Produits à faible stock</h2>
+                    <ul id="lowStockList">
+                        <!-- Produits à faible stock -->
+                    </ul>
+                </div>
+            </div>
+            <div class="recent-activity">
+                <h2><i class="fas fa-history"></i> Activité récente</h2>
+                <p>Dernières entrées et sorties de stock</p>
+                <div class="activity-list">
+                    <ul id="recentActivityList">
+                        <!-- Activités récentes -->
+                    </ul>
+                </div>
+                <p>Dernières Sorties de stocks</p>
+                <div>
+                    <ul id="recentSortieList">
+                        <!-- Sorties récentes -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    <span id="totalProducts"></span>
+    <span id="totalValue"></span>
+    <span id="totalEntree"></span>
+    <span id="totalSortie"></span>
+    <span id="lowStock"></span>
+    <span id="outOfStock"></span>
+    <script src="script/script.js"></script>
+</body>
+
+</html>
